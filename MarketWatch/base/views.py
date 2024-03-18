@@ -2,17 +2,23 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-def dashboard(request):
-    return HttpResponse('Dashboard')
+def market_analytics(request):
+    return render(request, 'base/market_analytics.html')
+
+def financial_trends(request):
+    return render(request, 'base/financial_trends.html')
+
+def reports(request):
+    return render(request, 'base/reports.html')
 
 def profile(request):
-    return HttpResponse('Profile')
+    return render(request, 'base/profile.html')
 
-def insights(request):
-    return HttpResponse('Insights')
+def edit_profile(request):
+    return render(request, 'base/edit_profile.html')
 
 def login(request):
-    return HttpResponse('Login')
+    return render(request, 'base/login.html')
 
 def signup(request):
-    return HttpResponse('Sign Up')
+    return render(request, 'base/signup.html')

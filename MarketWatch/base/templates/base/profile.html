@@ -1,4 +1,4 @@
-{% extends 'main.html'%}
+{% extends 'nav.html'%}
 
 {% block content %}
     <main class="w-75 mx-2 mt-3">
@@ -34,7 +34,7 @@
                 <label for="dob" class="form-label">Date of Birth</label>
                 <input type="date" class="form-control" id="dob">
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Submit</button>
+            <button class="btn btn-primary" style="background-color: #02618A;" formaction="/edit_profile/">Edit</button>
         </form>
     </main>
 {% endblock content %}
