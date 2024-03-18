@@ -7,3 +7,12 @@ def dashboard(request):
 
 def profile(request):
     return HttpResponse('Profile')
+
+def insights(request):
+    return HttpResponse('Insights')
+
+def login(request):
+    return HttpResponse('Login')
+
+def signup(request):
+    return HttpResponse('Sign Up')
