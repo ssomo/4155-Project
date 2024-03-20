@@ -29,6 +29,7 @@
                         Financial Trends
                     </a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{% url 'reports' %}" class="nav-link icon-link text-white py-2">
                         <img src="{% static 'images/icons8-clipboard-64.png' %}" alt="Clipboard icon" height="25px;">
@@ -42,11 +43,25 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{% url 'information' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-information-64.png' %}" alt="Information icon" height="25px;">
+                        Information
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{% url 'logout' %}" class="nav-link icon-link text-white py-2">
                         <img src="{% static 'images/icons8-logout-rounded-64.png' %}" alt="Logout icon" height="25px;">
                         Logout
                     </a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-logout-rounded-64.png' %}" alt="Login icon" height="25px;">
+                        Login
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
         
