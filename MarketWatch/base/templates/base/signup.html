@@ -15,23 +15,16 @@
                 <img src="{% static 'images/icons8-circle-96.png'%}" alt="Circle Logo">
                 <p class="ms-2 fs-1 fw-semibold" style="color: #02618A;">Insights</p>
             </div>
-            <form class="w-75 mx-auto mt-2">
+            <form class="w-75 mx-auto mt-2" action="" method="POST">
+                {% csrf_token %}
+                
+                {% for field in form %}
                 <div class="mb-3">
-                    <label for="first-name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first-name">
+                    <label class="form-label">{{field.label}}</label>
+                    <input class="form-control" {{field}}
                 </div>
-                <div class="mb-3">
-                    <label for="last-name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last-name">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
+                {% endfor %}
+
                 <p>Already have an account? <a href="/login/" class="link-primary">Login</a></p>
                 <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Sign Up</button>
             </form>
