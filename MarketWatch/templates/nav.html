@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -8,41 +9,41 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </head>
-    <body class="d-flex" style="padding: 0; margin: 0; position: relative;">
-        <div class="d-flex flex-column" style="background-color: #02618A; width:250px; height: 100vh;">
+    <body class="d-flex" style="padding: 0; margin: 0; position: relative; height: 100vh;">
+        <div class="d-flex flex-column" style="background-color: #02618A; width:250px; height: 100%;">
             <div class="d-flex justify-content-center align-items-center mt-4">
-                <img src="public/images/logo-white.png" alt="Circle Logo" height="50px;">
+                <img src="{% static 'images/logo-white.png' %}" alt="Circle Logo" height="50px;">
                 <span class="ms-2 fs-3 fw-medium text-white">MarketWatch</span>
             </div>
             <hr class="text-white">
             <ul class="nav nav-underline flex-column mx-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link icon-link text-white py-2 align-items-center">
-                        <img src="public/images/icons8-info-64.png" alt="Info icon" height="25px;">
-                        Information
+                    <a href="{% url 'market_analytics' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-statistics-96.png' %}" alt="Statistics icon" height="25px;">
+                        Market Analytics
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link icon-link text-white py-2">
-                        <img src="public/images/icons8-graph-report-64.png" alt="Graph report icon" height="25px;">
-                        Analytics
+                    <a href="{% url 'financial_trends' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-graph-report-64.png' %}" alt="Report icon" height="25px;">
+                        Financial Trends
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link icon-link text-white py-2">
-                        <img src="public/images/icons8-clipboard-64.png" alt="Clipboard icon" height="25px;">
-                        Trends
+                    <a href="{% url 'reports' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-clipboard-64.png' %}" alt="Clipboard icon" height="25px;">
+                        Reports
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link icon-link text-white py-2">
-                        <img src="public/images/icons8-male-user-64.png" alt="User icon" height="25px;">
+                    <a href="{% url 'profile' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-male-user-64.png' %}" alt="User icon" height="25px;">
                         Profile
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link icon-link text-white py-2">
-                        <img src="public/images/icons8-logout-rounded-64.png" alt="Logout icon" height="25px;">
+                    <a href="{% url 'logout' %}" class="nav-link icon-link text-white py-2">
+                        <img src="{% static 'images/icons8-logout-rounded-64.png' %}" alt="Logout icon" height="25px;">
                         Logout
                     </a>
                 </li>

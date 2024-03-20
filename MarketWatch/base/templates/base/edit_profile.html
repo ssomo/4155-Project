@@ -1,10 +1,28 @@
-{% extends 'main.html'%}
+{% extends 'nav.html'%}
 
 {% block content %}
     <main class="w-75 mx-2 mt-3">
-        <form class="w-75 mx-auto mt-2">
-            <h1 class="mt-4">Information</h1>
-            <p>Enter the required information below</p>
+        <form class="w-75 mx-auto mt-2" method="POST" action="">
+            <h1 class="mt-4">User Profile</h1>
+            <div class="mb-3">
+                <label for="first-name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="first-name">
+            </div>
+            <div class="mb-3">
+                <label for="last-name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="last-name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+           
+            <h1 class="mt-4">Finances</h1>
+            <p>**Required Information to use Comparison Engine and Mortgage Insight Features</p>
             <div class="mb-3">
                 <label for="state" class="form-label">State</label>
                 <input type="text" class="form-control" id="state">
@@ -79,7 +97,7 @@
                     <input type="text" class="form-control" id="property-value">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Submit</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Save</button>
         </form>
     </main>
 {% endblock content %}
