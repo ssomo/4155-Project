@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Financial_Information
-from .forms import CustomUserForm
+from .forms import CustomUserForm, FinanceForm
+import matplotlib.pyplot as plt
 
 # Create your views here.
 def market_analytics(request):
@@ -18,10 +19,46 @@ def reports(request):
     return render(request, 'base/reports.html')
 
 def profile(request):
-    return render(request, 'base/profile.html')
+    if request.user.is_authenticated:
+        profile = User.objects.get(username=request.user.username)
+        context = {'profile': profile}
+        return render(request, 'base/profile.html', context)
+    else:
+        return redirect('market_analytics')
 
 def edit_profile(request):
     return render(request, 'base/edit_profile.html')
+
+def information(request):
+    #Checks if the user's financial information exists
+    try:
+        user_info = Financial_Information.objects.get(user=request.user)
+    except:
+        user_info = None
+
+    form = FinanceForm()
+
+    if request.method == 'POST':
+        if user_info:
+            #Updates the financial information if it exists
+            form = FinanceForm(request.POST, instance=user_info)
+        else:
+            #Creates a new instance if it doesn't exist
+            form = FinanceForm(request.POST)
+        
+        if form.is_valid():
+            info = form.save(commit=False)
+            info.user = request.user
+            info.save()
+            messages.success(request, 'Your financial information was successfully saved.')
+            return redirect('information')
+        else:
+            messages.error(request, 'There are errors in your form. Please try again')
+    
+    else: 
+        form = FinanceForm(instance=user_info)
+
+    return render(request, 'base/information.html', {'form': form, 'user_info': user_info})
 
 def loginUser(request):
     if request.user.is_authenticated:
@@ -49,7 +86,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('market_analytics')
 
 def signup(request):
     form = CustomUserForm()
@@ -61,7 +98,7 @@ def signup(request):
             user.username = user.username.lower()
             user.save()
             login(request, user)
-            return redirect('profile')
+            return redirect('information')
         else:
             messages.error(request, 'There seems to be an issue registering this user.')
 
