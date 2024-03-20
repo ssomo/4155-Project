@@ -1,34 +1,31 @@
 {% extends 'nav.html'%}
-
+{%load static%}
 {% block content %}
     <main class="w-75 mx-2 mt-3">
         <h1 class="mt-4 mx-2">Market Analytics</h1>
         <div class="row mx-auto">
-            <div class="card col g-2 mx-2 mb-3" style="min-height: 20rem;">
+            <div class="card g-2 mx-2 mb-3"  style="min-height: 5rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Low-Mortgage Rate Areas</h5>
-                </div>
-            </div>
-            <div class="card col g-2 mx-2 mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">High-Mortgage Rate Areas</h5>
+                    <h5 class="card-title">Current Mortgage Rate Interests</h5>             
+                    <div class="mnd-rates-widget mx-auto" style="width: 650px; height: 310px; font-size: 12px; ">
+                        <div class="w-header" style="text-align: center; padding:4px 0;background-color: #336699; color: #FFFFFF;"> <a href="https://www.mortgagenewsdaily.com/mortgage-rates" target="_blank" style="color: #FFFFFF;text-decoration:none;">Home Loan Rates</a></div>
+                        <iframe src="//widgets.mortgagenewsdaily.com/widget/f/rates?t=large&sn=false&c=336699&u=&cbu=&w=598&h=260" width="600" height="260" frameborder="0" scrolling="no" style="border: solid 1px #336699; border-width: 0 1px;box-sizing:border-box;width:650px;height:260px;display:block;"></iframe>
+                        <div class="w-footer" style="text-align: center; padding:4px 0;background-color: #336699; color: #FFFFFF;">View More <a href="https://www.mortgagenewsdaily.com/mortgage-rates" target="_blank" style="color: #FFFFFF;text-decoration:none;">Mortgage Rates</a></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row mx-auto">
-            <div class="card col g-2 mx-2 mb-3" style="min-height: 15rem;">
+            <div class="card col g-2 mx-2 mb-3" style="min-height: 15rem; min-width: 25rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Current Mortgage Rate Interests</h5>
+                    <h5 class="card-title">Loan Amount History</h5>
+                    <img src="{% static 'images/how-have-median-total-lo.svg'%}" class="card-img-bottom">
                 </div>
             </div>
-            <div class="card col g-2 mx-2 mb-3">
+            <div class="card col g-2 mx-2 mb-3" style="min-height: 15rem; min-width: 25rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Housing Prices History</h5>
-                </div>
-            </div>
-            <div class="card col g-2 mx-2 mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Historical Mortgage Rates</h5>
+                    <h5 class="card-title">Historical Interest Rates</h5>
+                    <img src="{% static 'images/how-have-median-interest.svg'%}" class="card-img-bottom">
                 </div>
             </div>
         </div>
