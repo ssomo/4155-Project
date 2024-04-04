@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Amount Calculator</title>
+    <script>
+        function calculateLoanAmount() {
+            var propertyValue = parseFloat(document.getElementById('propertyValue').value);
+            var slope = parseFloat(document.getElementById('slope').value);
+            var yIntercept = parseFloat(document.getElementById('yIntercept').value);
+            
+            var loanAmount = (propertyValue - yIntercept) / slope;
+            document.getElementById('result').innerHTML = 'Estimated Loan Amount: ' + loanAmount.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h2>Loan Amount Calculator</h2>
+    <p>Enter the intended property value, slope, and y-intercept:</p>
+    <label for="propertyValue">Property Value:</label>
+    <input type="number" id="propertyValue" required><br><br>
+    <label for="slope">Slope:</label>
+    <input type="number" id="slope" step="any" required><br><br>
+    <label for="yIntercept">Y-Intercept:</label>
+    <input type="number" id="yIntercept" step="any" required><br><br>
+    <button onclick="calculateLoanAmount()">Calculate Loan Amount</button>
+    <p id="result"></p>
+</body>
+</html>
