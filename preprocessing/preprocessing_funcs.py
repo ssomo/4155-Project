@@ -44,26 +44,43 @@ def preprocess(
     DEBUG_print_status_full -- if True, print every col name during mapping (default False)
     """
 
+    # makes dirs if not exist
+    if not os.path.exists((folder + "/input") or (folder + "/output")):
+        print("folder DNE; creating folders")
+        os.makedirs(folder + "/input", exist_ok=True)
+        os.makedirs(folder + "/output", exist_ok=True)
+
+    # removes old output
     if remove_old:
+        print("removing old output")
         for f in glob(folder + "/output/*.csv"):
             os.remove(f)
 
+    # mapping
     print("~~~~~MAPPING~~~~~")
     for f in glob(folder + "/input/*.csv"):
         print("Processing file: " + os.path.basename(f))
         print("reading file")
         df = pd.read_csv(f, dtype="string")
 
+        # drops rows/cols
         if DEBUG_drop_rows:
             print("dropping rows")
             df = df[:100]
         if drop_dupes:
             print("dropping dupe cols")
-            df = df.drop(DUPLICATES, axis=1)
+            try:
+                df = df.drop(DUPLICATES, axis=1)
+            except:
+                pass
         if drop_unneeded:
             print("dropping unneeded cols")
-            df = df.drop(UNNEEDED, axis=1)
+            try:
+                df = df.drop(UNNEEDED, axis=1)
+            except:
+                pass
 
+        # remaps all col values according to mapping.py MAPPER
         print("remapping")
         for col in MAPPER.keys():
             if DEBUG_print_status_full:
@@ -78,11 +95,13 @@ def preprocess(
                     print("COL DROPPED")
                 next
 
+        # saves file
         print("saving file: " + processed_prefix + os.path.basename(f)[:-4] + ".csv")
         df.to_csv(
             folder + "/output/" + processed_prefix + os.path.basename(f)[:-4] + ".csv"
         )
 
+    # concatenates
     if concat:
         print("\n~~~~~CONCATENATING~~~~~")
         print("reading files")
