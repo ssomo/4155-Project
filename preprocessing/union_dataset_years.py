@@ -1,3 +1,12 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# DEPRECATED as of 2024-04-04 -Mac
+print(
+    "DEPRECATED as of 2024-04-04 -Mac\nUse updated function from preprocessing_funcs.py"
+)
+exit()
+# ~~~~~~~~~~~~~~~~~~~~~~~
+
+
 import pandas as pd
 
 # Load the datasets
@@ -6,7 +15,7 @@ file_paths = [
     "/mnt/data/PROCESSED_Wells_Fargo_Mortgage_2019.csv",
     "/mnt/data/PROCESSED_Wells_Fargo_Mortgage_2020.csv",
     "/mnt/data/PROCESSED_Wells_Fargo_Mortgage_2021.csv",
-    "/mnt/data/PROCESSED_Wells_Fargo_Mortgage_2022.csv"
+    "/mnt/data/PROCESSED_Wells_Fargo_Mortgage_2022.csv",
 ]
 
 # Read and concatenate the datasets
