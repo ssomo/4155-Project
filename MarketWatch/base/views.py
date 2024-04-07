@@ -18,6 +18,9 @@ def financial_trends(request):
 def reports(request):
     return render(request, 'base/reports.html')
 
+def loanCalculator(request):
+    return render(request, 'base/loan_calculator.html')
+
 def profile(request):
     if request.user.is_authenticated:
         profile = User.objects.get(username=request.user.username)
