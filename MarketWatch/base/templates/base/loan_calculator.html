@@ -1,0 +1,45 @@
+<head>
+    <script>
+        function calculateLoanAmount() {
+            var propertyValue = parseFloat(document.getElementById('propertyValue').value);
+            var slope = parseFloat(document.getElementById('slope').value);
+            var yIntercept = parseFloat(document.getElementById('yIntercept').value);
+            
+            var loanAmount = (propertyValue - yIntercept) / slope;
+            document.getElementById('result').innerHTML = 'Estimated Loan Amount: $' + loanAmount.toFixed(2);
+        }
+    </script>
+</head>
+{% extends 'nav.html'%}
+
+{% block content %}
+<main class="w-75 mx-auto mt-3">
+    <div class="w-75 mt-2 mx-auto">
+        <h1 class="mt-4">Loan Amount Calculator</h1>
+        <h5 class="mt-3">Instructions:</h5>
+        <ol class="list-group list-group-numbered my-3">
+            <li class="list-group-item">Go to the dashboard</li>
+            <li class="list-group-item">In the action category, ensure only originated loans and loans that were approved, but not accepted are checked.</li>
+            <li class="list-group-item">For the other categories, check the boxes that most fit you.</li>
+            <li class="list-group-item">Hover over the trend line on the dashboard to view the linear regression equation.</li>
+            <li class="list-group-item">Record the slope and y-intercept from this formula for the loan calculator.</li>
+            <li class="list-group-item">Enter your intended property value, slope, and y-intercept from the dashboard:</li>
+        </ol>
+        <div class="mb-3">
+            <label class="form-label" for="propertyValue">Property Value:</label>
+            <input type="number" class="form-control" id="propertyValue" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="slope">Slope:</label>
+            <input type="number" class="form-control" id="slope" step="any" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="yIntercept">Y-Intercept:</label>
+            <input type="number" class="form-control" id="yIntercept" step="any" required>
+        </div>
+        <button onclick="calculateLoanAmount()" class="btn btn-primary" style="background-color: #02618A;">Calculate Loan Amount</button>
+        <h4 class="mt-2" id="result"></h4>
+    </div>
+</main>
+{% endblock content %}
+
