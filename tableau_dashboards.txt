@@ -1,5 +1,7 @@
 The Tableau Dashboard by Maggie Roma
 
+This txt file was created in order to showcase and share data visualizations that were created with Tableau Software. The visualizations are accessable via their stable links. Embed code is shared as to assist with setting up the Tableau API in our project later on. 
+
 Link for Dashboard 1: 
 https://public.tableau.com/app/profile/maggie.roma/viz/shared/NRRNHZHW5
 
