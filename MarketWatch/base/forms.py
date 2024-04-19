@@ -12,3 +12,8 @@ class FinanceForm(forms.ModelForm):
         model = Financial_Information
         fields = ['state', 'income_level', 'credit_score', 'debt_ratio', 
                   'loan_amount', 'loan_term', 'down_payment', 'property_value']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'password']

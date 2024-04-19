@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Financial_Information
-from .forms import CustomUserForm, FinanceForm
-import matplotlib.pyplot as plt
+from .forms import CustomUserForm, FinanceForm, ProfileForm
 
 # Create your views here.
 def market_analytics(request):
@@ -30,38 +30,49 @@ def profile(request):
         return redirect('market_analytics')
 
 def edit_profile(request):
-    return render(request, 'base/edit_profile.html')
-
-def information(request):
-    #Checks if the user's financial information exists
-    try:
-        user_info = Financial_Information.objects.get(user=request.user)
-    except:
-        user_info = None
-
-    form = FinanceForm()
+    user = request.user
+    form = ProfileForm(instance=user)
+    context = {'user': user, 'form': form}
 
     if request.method == 'POST':
-        if user_info:
-            #Updates the financial information if it exists
-            form = FinanceForm(request.POST, instance=user_info)
-        else:
-            #Creates a new instance if it doesn't exist
-            form = FinanceForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile was successfully updated.')
+            return redirect('profile')
+        
+    return render(request, 'base/edit_profile.html', context)
+
+def information(request):
+    user = Financial_Information.objects.get(user=request.user)
+    form = FinanceForm(instance=user)
+
+    if request.method == 'POST':
+        form = FinanceForm(request.POST, instance=user)
         
         if form.is_valid():
-            info = form.save(commit=False)
-            info.user = request.user
-            info.save()
+            form.save()
             messages.success(request, 'Your financial information was successfully saved.')
             return redirect('information')
         else:
             messages.error(request, 'There are errors in your form. Please try again')
-    
-    else: 
-        form = FinanceForm(instance=user_info)
 
-    return render(request, 'base/information.html', {'form': form, 'user_info': user_info})
+    context = {'form': form, 'user': user}
+    return render(request, 'base/information.html', context)
+
+def editInformation(request):
+    user = Financial_Information.objects.get(user=request.user)
+    form = FinanceForm(instance=user)
+    context = {'user': user, 'form': form}
+
+    if request.method == 'POST':
+        form = FinanceForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your financial information was successfully updated.')
+            return redirect('information')
+   
+    return render(request, 'base/edit_information.html', context)
 
 def loginUser(request):
     if request.user.is_authenticated:

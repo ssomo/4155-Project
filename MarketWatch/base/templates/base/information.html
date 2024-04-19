@@ -3,57 +3,18 @@
 {% block content %}
     <main class="w-75 mx-2 mt-3">
         <form class="w-75 mx-auto mt-2" method="POST" action="">
-            <h1 class="mt-4">Finances</h1>
-            <p>**Required Information to use Comparison Engine and Mortgage Insight Features</p>
+            <h1 class="mt-4">Financial Information</h1>
+            <p>**Information is required to use Comparison Engine and Mortgage Insight Features</p>
             {% csrf_token %}
-            
-            {% if user_info %}
-            <div class="mb-3">
-                <label for="state" class="form-label">State</label>
-                <input type="text" class="form-control" id="state" value="{{user_info.state}}">
-            </div>
-            <div class="mb-3">
-                <label for="income" class="form-label">Income Level</label>
-                <input type="text" class="form-control" id="income" value="{{user_info.income_level}}">
-            </div>
-            <div class="row">
-                <div class="col mb-3">
-                    <label for="credit" class="form-label">Credit Score</label>
-                    <input type="text" id="credit" class="form-select"value="{{user_info.credit_score}}">
-                </div>
-                <div class="col mb-3">
-                    <label for="debt-ratio" class="form-label">Debt-to-Income Ratio</label>
-                    <input type="text" class="form-control" id="debt-ratio" value="{{user_info.debt_ratio}}">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col mb-3">
-                    <label for="loan-amount" class="form-label">Loan Amount</label>
-                    <input type="text" id="loan-amount" class="form-select" value="{{user_info.loan_amount}}">
-                </div>
-                <div class="col mb-3">
-                    <label for="loan-term" class="form-label">Loan Term</label>
-                    <input type="text" id="loan-term" class="form-control" value="{{user_info.loan_term}}">
-                </div>
-                <div class="col mb-3">
-                    <label for="down-payment" class="form-label">Down Payment</label>
-                    <input type="text" id="down-payment" class="form-control" value="{{user_info.down_payment}}">
-                </div>
-                <div class="mb-3">
-                    <label for="property-value" class="form-label">Property Value</label>
-                    <input type="text" class="form-control" id="property-value" value="{{user_info.property_value}}">
-                </div>
-            </div>
-            {% else %}
             {% for field in form %}
-                <div class="mb-3">
-                    <label class="form-label">{{ field.label }}</label>
-                    <input class="form-control" type="{{ field.field.widget.input_type }}" 
-                        name="{{ field.name }}"/>
-                </div>
+            <div class="mb-3">
+                <label class="form-label">{{field.label}}</label>
+                <input class="form-control" type="{{ field.field.widget.input_type }}" 
+                    name="{{ field.name }}" value="{{ field.value }}">
+            </div>
             {% endfor %}
-            {% endif %}
             <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Submit</button>
+            <a class="btn btn-primary" style="background-color: #02618A;" href="{% url 'edit_information' %}">Edit</a>
         </form>
     </main>
 {% endblock content %}

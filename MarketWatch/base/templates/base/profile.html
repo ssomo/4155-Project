@@ -2,7 +2,8 @@
 
 {% block content %}
     <main class="w-75 mx-2 mt-3">
-        <form class="w-75 mx-auto mt-2" method="POST" action="">
+        <form class="w-75 mx-auto mt-2" method="GET" action="">
+            {% csrf_token %}
             <h1 class="mt-4">User Profile</h1>
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
@@ -20,7 +21,7 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" value="{{profile.password}}">
             </div>
-            <button class="btn btn-primary" style="background-color: #02618A;">Submit</button>
+            <button class="btn btn-primary" style="background-color: #02618A;" formaction="{% url 'edit_profile' %}">Edit</button>
         </form>
     </main>
 {% endblock content %}
