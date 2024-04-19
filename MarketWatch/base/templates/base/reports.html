@@ -3,11 +3,11 @@
 {% block content %}
 
 <main class="w-75 mx-2 mt-3">
-    <form class="w-75 mx-auto mt-2">
+    <div class="w-75 mx-auto mt-2">
         <h1 class="mt-4">Generate Reports</h1>
 
-        <button class="btn btn-primary" style="background-color: #02618A;" formaction="#">Generate Comparison Engine Report</button>
-        <button class="btn btn-primary" style="background-color: #02618A;" formaction="{% url 'loan_calculator' %}">Generate Mortgage Insight Report</button>
+        <a class="btn btn-primary" style="background-color: #02618A;" href="">Generate Comparison Engine Report</a>
+        <a class="btn btn-primary" style="background-color: #02618A;" href="{% url 'loan_calculator' %}">Generate Mortgage Insight Report</a>
     </form>
 </main>
 

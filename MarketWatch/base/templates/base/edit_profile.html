@@ -3,24 +3,22 @@
 {% block content %}
     <main class="w-75 mx-2 mt-3">
         <form class="w-75 mx-auto mt-2" method="POST" action="">
-            <h1 class="mt-4">User Profile</h1>
+            {% csrf_token %}
+            <h1 class="mt-4">Edit User Profile</h1>
+            {% for field in form %}
             <div class="mb-3">
-                <label for="first-name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first-name">
+                <label class="form-label">{{field.label}}</label>
+
+                {% if field.field.widget.input_type == 'password' %}
+                <input class="form-control" type="password" 
+                name="{{ field.name }}"  value="">
+                {% else %} 
+                <input class="form-control" type="{{ field.field.widget.input_type }}" 
+                    name="{{ field.name }}" value="{{ field.value }}">
+                {% endif %}
             </div>
-            <div class="mb-3">
-                <label for="last-name" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="last-name">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
-            </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #02618A;">Save</button>
+            {% endfor %}
+            <button class="btn btn-primary" style="background-color: #02618A;">Save</button>
         </form>
     </main>
 {% endblock content %}
