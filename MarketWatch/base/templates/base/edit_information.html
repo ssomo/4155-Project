@@ -1,0 +1,18 @@
+{% extends 'nav.html'%}
+
+{% block content %}
+    <main class="w-75 mx-2 mt-3">
+        <form class="w-75 mx-auto mt-2" method="POST" action="">
+            <h1 class="mt-4">Edit Financial Information</h1>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{field.label}}</label>
+                <input class="form-control" type="{{ field.field.widget.input_type }}" 
+                    name="{{ field.name }}" value="{{ field.value }}">
+            </div>
+            {% endfor %}
+            <button class="btn btn-primary" style="background-color: #02618A;">Save</button>
+        </form>
+    </main>
+{% endblock content %}
