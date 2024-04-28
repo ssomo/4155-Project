@@ -1,9 +1,10 @@
 {% extends 'nav.html'%}
 
 {% block content %}
-    <main class="w-75 mx-2 mt-3">
+    <main class="w-100 mx-2 mt-3">
         <form class="w-75 mx-auto mt-2" method="POST" action="">
             <h1 class="mt-4">Financial Information</h1>
+            <hr>
             <p>**Information is required to use Comparison Engine and Mortgage Insight Features</p>
             {% csrf_token %}
             {% for field in form %}

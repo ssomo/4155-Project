@@ -1,8 +1,9 @@
 {% extends 'nav.html'%}
 {%load static%}
 {% block content %}
-    <main class="w-75 mx-2 mt-3">
+    <main class="w-100 mx-2 mt-3">
         <h1 class="mt-4 mx-2">Market Analytics</h1>
+        <hr>
         <div class="row mx-auto">
             <div class="card g-2 mx-2 mb-3"  style="min-height: 5rem;">
                 <div class="card-body">
@@ -16,13 +17,13 @@
             </div>
         </div>
         <div class="row mx-auto">
-            <div class="card col g-2 mx-2 mb-3" style="min-height: 15rem; min-width: 25rem;">
+            <div class="card col g-2 mx-2 mb-3 w-75" style="min-height: 15rem;">
                 <div class="card-body">
                     <h5 class="card-title">Loan Amount History</h5>
                     <img src="{% static 'images/how-have-median-total-lo.svg'%}" class="card-img-bottom">
                 </div>
             </div>
-            <div class="card col g-2 mx-2 mb-3" style="min-height: 15rem; min-width: 25rem;">
+            <div class="card col g-2 mx-2 mb-3 w-75" style="min-height: 15rem;">
                 <div class="card-body">
                     <h5 class="card-title">Historical Interest Rates</h5>
                     <img src="{% static 'images/how-have-median-interest.svg'%}" class="card-img-bottom">
