@@ -10,8 +10,8 @@ class CustomUserForm(UserCreationForm):
 class FinanceForm(forms.ModelForm):
     class Meta:
         model = Financial_Information
-        fields = ['state', 'income_level', 'credit_score', 'debt_ratio', 
-                  'loan_amount', 'loan_term', 'down_payment', 'property_value']
+        fields = ['state', 'income_level', 'credit_score', 'loan_amount', 'monthly_loan_term', 'down_payment', 'property_value']
+    
 
 class ProfileForm(forms.ModelForm):
     class Meta:

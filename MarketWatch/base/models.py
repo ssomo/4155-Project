@@ -6,9 +6,8 @@ class Financial_Information(models.Model):
     state = models.CharField(max_length=100)
     income_level = models.TextField()
     credit_score = models.IntegerField()
-    debt_ratio = models.FloatField(default=0.0)
     loan_amount = models.FloatField(default=0.0)
-    loan_term = models.TextField()
+    monthly_loan_term = models.IntegerField(default=0)
     down_payment = models.FloatField(default=0.0)
     property_value = models.FloatField(default=0.0)
 

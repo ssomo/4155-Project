@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Financial_Information
 from .forms import CustomUserForm, FinanceForm, ProfileForm
+import http.client
+import json
 
 # Create your views here.
 def market_analytics(request):
@@ -19,7 +21,27 @@ def reports(request):
     return render(request, 'base/reports.html')
 
 def loanCalculator(request):
-    return render(request, 'base/loan_calculator.html')
+    user = Financial_Information.objects.get(user=request.user)
+
+    connection = http.client.HTTPSConnection("mortgage-monthly-payment-calculator.p.rapidapi.com")
+    headers = {
+        'X-RapidAPI-Key': "c23b5bda60msh87ee7e2a3b398f0p19db4ajsn393e1f4f609f",
+        'X-RapidAPI-Host': 'mortgage-monthly-payment-calculator.p.rapidapi.com'
+    }
+
+    loanAmount = int(user.loan_amount)
+    terms = user.monthly_loan_term
+
+    connection.request("GET", f"/revotek-finance/mortgage/monthly-payment?loanAmount={loanAmount}&interestRate=0.05&terms={terms}", headers=headers)
+    res = connection.getresponse()
+    data = res.read()
+
+    payment = json.loads(data.decode("utf-8"))
+    amount = round(payment.get('monthlyPayment'), 2)
+
+    context = {'user': user, 'amount': amount}
+
+    return render(request, 'base/loan_calculator.html', context)
 
 def profile(request):
     if request.user.is_authenticated:
@@ -43,23 +65,33 @@ def edit_profile(request):
         
     return render(request, 'base/edit_profile.html', context)
 
+@login_required
 def information(request):
-    user = Financial_Information.objects.get(user=request.user)
-    form = FinanceForm(instance=user)
+    user = request.user
+
+    try:
+        info = Financial_Information.objects.get(user=request.user)
+    except Financial_Information.DoesNotExist:
+        info = None
 
     if request.method == 'POST':
-        form = FinanceForm(request.POST, instance=user)
+        form = FinanceForm(request.POST, instance=info)
         
         if form.is_valid():
-            form.save()
+            financial_info = form.save(commit=False)
+            financial_info.user = user
+            financial_info.save()
             messages.success(request, 'Your financial information was successfully saved.')
             return redirect('information')
         else:
             messages.error(request, 'There are errors in your form. Please try again')
+    else:
+        form = FinanceForm(instance=info)
 
     context = {'form': form, 'user': user}
     return render(request, 'base/information.html', context)
 
+@login_required
 def editInformation(request):
     user = Financial_Information.objects.get(user=request.user)
     form = FinanceForm(instance=user)

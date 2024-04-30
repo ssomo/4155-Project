@@ -38,8 +38,9 @@
             <label class="form-label" for="yIntercept">Y-Intercept:</label>
             <input type="number" class="form-control" id="yIntercept" step="any" required>
         </div>
-        <button onclick="calculateLoanAmount()" class="btn btn-primary" style="background-color: #02618A;">Calculate Loan Amount</button>
-        <h4 class="mt-2" id="result"></h4>
+        <button onclick="calculateLoanAmount()" class="btn btn-primary mb-2" style="background-color: #02618A;">Calculate Loan Amount</button>
+        <h4 class="mt-3" id="result"></h4>
+        <h5 class="my-3">Your estimated monthly mortgage payment is: ${{amount}}</h5>
     </div>
 </main>
 {% endblock content %}
