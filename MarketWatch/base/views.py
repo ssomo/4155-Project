@@ -11,14 +11,14 @@ import http.client
 import json
 
 # Create your views here.
+def home(request):
+    return render(request, 'base/home.html')
+
 def market_analytics(request):
     return render(request, 'base/market_analytics.html')
 
 def financial_trends(request):
     return render(request, 'base/financial_trends.html')
-
-def reports(request):
-    return render(request, 'base/reports.html')
 
 def loanCalculator(request):
     user = Financial_Information.objects.get(user=request.user)
