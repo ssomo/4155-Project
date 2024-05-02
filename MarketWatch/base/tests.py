@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse, resolve
 from base.views import home, financial_trends, loanCalculator, profile, edit_profile, information, editInformation, loginUser, logoutUser, signup
 
