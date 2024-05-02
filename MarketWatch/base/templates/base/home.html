@@ -1,14 +1,13 @@
 {% extends 'nav.html'%}
+{% load static %}
 
 {% block content %}
 <main class="w-100 mx-2 mt-3">
     <h1 class="mt-4 mx-2">Market Watch: A Real Estate Market Trends Dashboard</h1>
     <hr>
     <div class="row mx-auto">
-
-        <h5>Market Watch is designed to assist you, whether you be a homebuyer, real estate professional, or casual observer, in your real estate financial queries.</h5>
-
-        <img src="{% static 'images/Beige minimalist photo collage.png' %}">
+        <h5 class="my-2 lead">Market Watch is designed to assist you, whether you be a homebuyer, real estate professional, or casual observer, in your real estate financial queries.</h5>
+        <img src="{% static 'images/collage.png' %}" height="550px" class="rounded my-3">
     </div>
 </main>
 {% endblock content %}
