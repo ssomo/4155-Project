@@ -14,9 +14,6 @@ import json
 def home(request):
     return render(request, 'base/home.html')
 
-def market_analytics(request):
-    return render(request, 'base/market_analytics.html')
-
 def financial_trends(request):
     return render(request, 'base/financial_trends.html')
 
@@ -124,7 +121,7 @@ def loginUser(request):
         
         if user is not None:
             login(request, user)
-            return redirect('market_analytics')
+            return redirect('home')
         else:
             messages.error(request, 'Username or Password is incorrect. Please try again.')
 
@@ -132,7 +129,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('market_analytics')
+    return redirect('home')
 
 def signup(request):
     form = CustomUserForm()
