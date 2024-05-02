@@ -14,16 +14,12 @@
             <div class="col d-flex flex-column sticky-top vh-100" style="background-color: #02618A; max-width:250px;">
                 <div class="d-flex justify-content-center align-items-center mt-4">
                     <img src="{% static 'images/logo-white.png' %}" alt="Circle Logo" height="50px;">
-                    <span class="ms-2 fs-3 fw-medium text-white">MarketWatch</span>
+                    <a href="{% url 'home' %}" class="nav-link icon-link text-white py-2">
+                        <span class="ms-2 fs-3 fw-medium text-white">MarketWatch</span>
+                    </a>
                 </div>
                 <hr class="text-white">
                 <ul class="nav nav-underline flex-column mx-auto">
-                    <li class="nav-item mx-auto">
-                        <a href="{% url 'market_analytics' %}" class="nav-link icon-link text-white py-2">
-                            <img src="{% static 'images/icons8-statistics-96.png' %}" alt="Statistics icon" height="25px;">
-                            Market Analytics
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{% url 'financial_trends' %}" class="nav-link icon-link text-white py-2">
                             <img src="{% static 'images/icons8-graph-report-64.png' %}" alt="Report icon" height="25px;">
@@ -32,9 +28,9 @@
                     </li>
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a href="{% url 'reports' %}" class="nav-link icon-link text-white py-2">
+                        <a href="{% url 'loan_calculator' %}" class="nav-link icon-link text-white py-2">
                             <img src="{% static 'images/icons8-clipboard-64.png' %}" alt="Clipboard icon" height="25px;">
-                            Reports
+                            Loan Calculator
                         </a>
                     </li>
                     <li class="nav-item">
