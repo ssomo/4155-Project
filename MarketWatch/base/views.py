@@ -18,26 +18,30 @@ def financial_trends(request):
     return render(request, 'base/financial_trends.html')
 
 def loanCalculator(request):
-    user = Financial_Information.objects.get(user=request.user)
+    user = request.user
+    #Checks if user inputted their financial information
+    try:
+        info = Financial_Information.objects.get(user=request.user)
+        connection = http.client.HTTPSConnection("mortgage-monthly-payment-calculator.p.rapidapi.com")
+        headers = {
+            'X-RapidAPI-Key': "c23b5bda60msh87ee7e2a3b398f0p19db4ajsn393e1f4f609f",
+            'X-RapidAPI-Host': 'mortgage-monthly-payment-calculator.p.rapidapi.com'
+        }
 
-    connection = http.client.HTTPSConnection("mortgage-monthly-payment-calculator.p.rapidapi.com")
-    headers = {
-        'X-RapidAPI-Key': "c23b5bda60msh87ee7e2a3b398f0p19db4ajsn393e1f4f609f",
-        'X-RapidAPI-Host': 'mortgage-monthly-payment-calculator.p.rapidapi.com'
-    }
+        loanAmount = int(info.loan_amount)
+        terms = info.monthly_loan_term
 
-    loanAmount = int(user.loan_amount)
-    terms = user.monthly_loan_term
+        connection.request("GET", f"/revotek-finance/mortgage/monthly-payment?loanAmount={loanAmount}&interestRate=0.05&terms={terms}", headers=headers)
+        res = connection.getresponse()
+        data = res.read()
 
-    connection.request("GET", f"/revotek-finance/mortgage/monthly-payment?loanAmount={loanAmount}&interestRate=0.05&terms={terms}", headers=headers)
-    res = connection.getresponse()
-    data = res.read()
+        payment = json.loads(data.decode("utf-8"))
+        amount = round(payment.get('monthlyPayment'), 2)
+    except Financial_Information.DoesNotExist:
+        info = None
+        amount = 0
 
-    payment = json.loads(data.decode("utf-8"))
-    amount = round(payment.get('monthlyPayment'), 2)
-
-    context = {'user': user, 'amount': amount}
-
+    context = {'info': info, 'amount': amount}
     return render(request, 'base/loan_calculator.html', context)
 
 def profile(request):
@@ -65,7 +69,7 @@ def edit_profile(request):
 @login_required
 def information(request):
     user = request.user
-
+    #Checks if user inputted their financial information
     try:
         info = Financial_Information.objects.get(user=request.user)
     except Financial_Information.DoesNotExist:
