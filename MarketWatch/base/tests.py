@@ -1,6 +1,8 @@
-from django.test import TestCase, SimpleTestCase
+from django.test import TestCase, Client, SimpleTestCase
 from django.urls import reverse, resolve
 from base.views import home, financial_trends, loanCalculator, profile, edit_profile, information, editInformation, loginUser, logoutUser, signup
+from base.models import Financial_Information, Notification
+from django.contrib.auth.models import User
 from base.forms import CustomUserForm, FinanceForm, ProfileForm
 
 # URL Tests
@@ -54,7 +56,80 @@ class TestUrls(TestCase):
         url = reverse('logout')
         print(resolve(url))
         self.assertEqual(resolve(url).func, logoutUser)
+        
+# Views Tests
+class TestViews(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.home_url = reverse('home')
+        self.financial_trends_url = reverse('financial_trends')
+        self.profile_url = reverse('profile')
+        self.information_url = reverse('information')
+        self.edit_information_url = reverse('edit_information')
+        self.login_user_url = reverse('login')
+        self.logout_user_url = reverse('home')
+        self.signup_url = reverse('signup')
+        
 
+    def test_home_GET(self):
+        response = self.client.get(self.home_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base/home.html')
+
+    def test_financial_trends_GET(self):
+        response = self.client.get(self.financial_trends_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base/financial_trends.html')
+    
+    def test_profile_GET(self):
+        response = self.client.get(self.profile_url)
+        if(self.assertEquals(response.status_code, 302)):
+            self.assertTemplateUsed(response, 'base/profile.html')
+    
+    def test_information_GET(self):
+        response = self.client.get(self.information_url)
+        self.assertEquals(response.status_code, 302)
+    
+    def test_edit_formation_GET(self):
+        response = self.client.get(self.edit_information_url)
+        self.assertEquals(response.status_code, 302)
+
+    def test_loginUser_GET(self):
+        response = self.client.get(self.login_user_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base/login.html')
+
+    def test_logoutUser_GET(self):
+        response = self.client.get(self.logout_user_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base/home.html')
+    
+    def test_signup_GET(self):
+        response = self.client.get(self.signup_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base/signup.html')
+
+# Model Tests
+class TestModels(TestCase):
+    def setUp(self):
+        self.user1 = Financial_Information.objects.create(
+            user = User(Financial_Information.user_id),
+            state = 'NC', 
+            income_level = 32500,
+            credit_score = 550,
+            loan_amount = 300000,
+            monthly_loan_term = 360,
+            down_payment = 3000,
+            property_value = 250000
+        )
+        Financial_Information.save()
+        self.notification1 = Notification.objects.create(
+            user = User(Notification.user_id),
+            timestamp = 1337453263.939,
+            is_read = True,
+            message = 'Sample Text'
+        )
+        
 # Form Tests
 class TestForms(SimpleTestCase):
     databases = '__all__'
