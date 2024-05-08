@@ -1,6 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from django.urls import reverse, resolve
 from base.views import home, financial_trends, loanCalculator, profile, edit_profile, information, editInformation, loginUser, logoutUser, signup
+from base.forms import CustomUserForm, FinanceForm, ProfileForm
 
 # URL Tests
 class TestUrls(TestCase):
@@ -53,3 +54,55 @@ class TestUrls(TestCase):
         url = reverse('logout')
         print(resolve(url))
         self.assertEqual(resolve(url).func, logoutUser)
+
+# Form Tests
+class TestForms(SimpleTestCase):
+    databases = '__all__'
+    def test_custom_user_form_valid_data(self):
+        form = CustomUserForm(data={
+            'first_name:' : 'Jenny',
+            'last_name' : 'Williams',
+            'username' : 'jwilliams1',
+            'password1' : 'blueyankee22!',
+            'password2' : 'blueyankee22!'
+        })
+
+        self.assertTrue(form.is_valid())
+
+    def test_custom_user_form_no_data(self):
+        form = CustomUserForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 3)
+
+    def test_finance_form_valid_data(self):
+        form = FinanceForm(data={
+            'state' : 'NC',
+            'income_level' : 32500,
+            'credit_score' : 550,
+            'loan_amount' : 300000,
+            'monthly_loan_term' : 360,
+            'down_payment' : 3000,
+            'property_value' : 250000
+        })
+
+        self.assertTrue(form.is_valid())
+
+    def test_finance_form_no_data(self):
+        form = FinanceForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 7)
+
+    def test_profile_form_valid_data(self):
+        form = ProfileForm(data={
+            'first_name' : 'Jenny',
+            'last_name' : 'Williams',
+            'username' : 'jwilliams1',
+            'password' : 'blueyankee22!'
+        })
+
+        self.assertTrue(form.is_valid())
+    
+    def test_profile_form_no_data(self):
+        form = ProfileForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 2)
